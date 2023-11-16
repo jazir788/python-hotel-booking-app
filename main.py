@@ -75,8 +75,13 @@ print(df)
 hotel_id = input("Enter the id of the hotel: ")
 hotel = Hotel(hotel_id)
 if hotel.available():
-    credit_card = SecureCreditCard(number = "1234567890123456")
-    if credit_card.validate(expiration="12/26", holder = "JOHN SMITH", cvc = "123"):
+    credit_card_no = input("Enter your credit card number: ")
+    credit_card_expiration = input("Enter your credit card expiration date in this format 'mm/yy': ")
+    credit_card_holder = input("Enter your credit card holder name: ")
+    credit_card_cvc = input("Enter your credit card cvc number: ")
+
+    credit_card = SecureCreditCard(number = credit_card_no)
+    if credit_card.validate(expiration=credit_card_expiration, holder = credit_card_holder, cvc = credit_card_cvc):
         if credit_card.authenticate(given_password="mypass") == True:
             hotel.book()
             name = input("Enter your name: ")
