@@ -5,7 +5,6 @@ df_cards = pd.read_csv("cards.csv", dtype= str).to_dict(orient="records")
 df_cards_security = pd.read_csv("card_security.csv", dtype= str)
 
 
-
 class User:
     def view_hotels(self, hotel_id):
         pass
@@ -100,10 +99,11 @@ if hotel.available():
     credit_card_expiration = input("Enter your credit card expiration date in this format 'mm/yy': ")
     credit_card_holder = input("Enter your credit card holder name: ")
     credit_card_cvc = input("Enter your credit card cvc number: ")
+    credit_card_password = input("Enter your credit card password: ")
 
     credit_card = SecureCreditCard(number = credit_card_no)
     if credit_card.validate(expiration=credit_card_expiration, holder = credit_card_holder, cvc = credit_card_cvc):
-        if credit_card.authenticate(given_password="mypass") == True:
+        if credit_card.authenticate(given_password= credit_card_password) == True:
             hotel.book()
             name = input("Enter your name: ")
             reservation_ticket = ReservationTicket(name, hotel)
@@ -113,6 +113,8 @@ if hotel.available():
                 hotel.book_spa_package()
                 spareservation = SpaReservation(name, hotel)
                 print(spareservation.generate())
+            else:
+                print("Thank you for your booking")
         else:
             print("Credit Card authentication failed")
     else:
